@@ -1,0 +1,6 @@
+---
+- hosts: nas
+  roles:
+    - caddy
+    - nextcloud
+    - collabora

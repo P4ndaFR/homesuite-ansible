@@ -1,0 +1,64 @@
+- name: Install apt-transport-https
+  apt:
+    name: apt-transport-https
+    state: present
+    update_cache: yes
+  become: yes
+
+- name: Add Collabora's signing key
+  apt_key:
+    keyserver: keyserver.ubuntu.com
+    id: 0C54D189F4BA284D
+  become: yes
+
+- name: Add Collabora's repository to sources
+  apt_repository:
+    repo: deb https://www.collaboraoffice.com/repos/CollaboraOnline/CODE ./
+    state: present
+  become: yes
+
+- name: Add a repository for dependencies
+  apt_repository:
+    repo: deb http://security.ubuntu.com/ubuntu xenial-security main
+    state: present
+  become: yes
+
+- name: Install collabora
+  apt:
+    name: "{{item}}"
+    state: present
+    update_cache: yes
+  become: yes
+  loop:
+    - loolwsd
+    - code-brand
+
+- name: Configure ssl in loolwsd
+  xml:
+    path: /etc/loolwsd/loolwsd.xml
+    xpath: /config/ssl/enable
+    value: "false"
+  become: yes
+
+- name: Configure termination in loolwsd
+  xml:
+    path: /etc/loolwsd/loolwsd.xml
+    xpath: /config/ssl/termination
+    value: "true"
+  become: yes
+
+- name: Configure wopi in loolwsd
+  xml:
+    path: /etc/loolwsd/loolwsd.xml
+    xpath: /config/storage/wopi
+    add_children:
+      - host: "{{escaped_domain}}"
+  become: yes
+
+- name: Configure wopi in loolwsd allow
+  xml:
+    path: /etc/loolwsd/loolwsd.xml
+    xpath: "/config/storage/wopi/host[text()={{escaped_domain}}]"
+    attribute: allow
+    value: "true"
+  become: yes

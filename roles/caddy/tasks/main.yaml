@@ -1,0 +1,86 @@
+- name: Download caddy binary
+  get_url:
+    url: https://caddyserver.com/download/linux/amd64?license=personal&telemetry=off
+    dest: /tmp/caddy.tar.gz
+
+- name: Create dir for extraction
+  file:
+    path: /tmp/caddy
+    state: directory
+
+- name: Extract binary
+  unarchive:
+    src: /tmp/caddy.tar.gz
+    dest: /tmp/caddy
+    copy: no
+
+- name: Set binary in place
+  copy:
+    src: /tmp/caddy/caddy
+    dest: /usr/local/bin
+    remote_src: yes
+  become: yes
+
+- name: Allow binary to use ports 80 & 443
+  capabilities:
+    path: /usr/local/bin/caddy
+    capability: cap_net_bind_service+ep
+  become: yes
+
+- name: Create caddy certs directory
+  file:
+    path: /etc/ssl/caddy
+    state: directory
+    owner: www-data
+    group: www-data
+    recurse: yes
+  become: yes
+
+- name: Create conf directory
+  file:
+    path: /etc/caddy/caddy.conf.d
+    state: directory
+    owner: www-data
+    group: www-data
+    recurse: yes
+  become: yes
+
+- name: Create conf directory
+  file:
+    path: /etc/caddy/caddy.conf.d
+    state: directory
+    owner: www-data
+    group: www-data
+  become: yes
+
+- name: Create main Caddyfile
+  file:
+    path: /etc/caddy/Caddyfile
+    owner: www-data
+    group: www-data
+  become: yes
+
+- name: Configure caddyfile to search conf in /etc/caddy/caddy.conf.d
+  lineinfile:
+    path: /etc/caddy/Caddyfile
+    line: "import caddy.conf.d/*.conf"
+  become: yes
+
+- name: Create systemd usr directory
+  file:
+    path: /usr/lib/systemd/system
+    state: directory
+
+- name: Set caddy service in place
+  copy:
+    src: /tmp/caddy/init/linux-systemd/caddy.service
+    dest: /usr/lib/systemd/system/caddy.service
+    remote_src: yes
+  become: yes
+
+- name: Start caddy
+  systemd:
+    name: caddy
+    daemon_reload: yes
+    state: restarted
+  become: yes

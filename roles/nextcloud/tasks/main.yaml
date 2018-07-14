@@ -1,0 +1,95 @@
+- name: Install php dependencies
+  apt:
+    name: "{{item}}"
+    state: present
+    update_cache: yes
+  loop:
+    - "php{{php_version}}-fpm"
+    - "php{{php_version}}-gd"
+    - "php{{php_version}}-json"
+    - "php{{php_version}}-pgsql"
+    - "php{{php_version}}-curl"
+    - "php{{php_version}}-mbstring"
+    - "php{{php_version}}-intl"
+    - "php{{php_version}}-mcrypt"
+    - "php-imagick"
+    - "php{{php_version}}-xml"
+    - "php{{php_version}}-zip"
+  become: yes
+
+- name: Start php-fpm
+  systemd:
+    name: "php{{php_version}}-fpm"
+    daemon_reload: yes
+    state: restarted
+  become: yes
+
+- name: Install postgresql
+  apt:
+    name: "postgresql"
+    state: present
+    update_cache: yes
+  become: yes
+
+- name: Create nextcloud user in postgresql
+  shell: sudo -u postgres psql -c "CREATE USER nextcloud WITH password '{{db_password}}'";
+  become: yes
+  register: out
+  failed_when: out.rc != 0 and 'already exists' not in out.stderr
+
+- name: Create database for nextcloud
+  shell: sudo -u postgres psql -c "CREATE DATABASE nextcloud WITH owner 'nextcloud';";
+  become: yes
+  register: out
+  failed_when: out.rc != 0 and 'already exists' not in out.stderr
+
+- name: Download nextcloud
+  get_url:
+    url: https://download.nextcloud.com/server/releases/nextcloud-13.0.4.zip
+    dest: /tmp/nextcloud-13.0.4.zip
+
+- name: Ensure main dir exists
+  file:
+    path: /srv/http
+    state: directory
+    owner: www-data
+    group: www-data
+  become: yes
+
+- name: Create log directory for caddy
+  file:
+    path: /var/log/caddy
+    state: directory
+    owner: www-data
+    group: www-data
+  become: yes
+
+- name: Check if nextcloud dir exists
+  stat:
+      path: /srv/http/nextcloud
+  register: stat_result
+  become: yes
+
+- name: Extract binary
+  unarchive:
+    src: /tmp/nextcloud-13.0.4.zip
+    dest: /srv/http
+    copy: no
+    owner: www-data
+    group: www-data
+  become: yes
+  when: stat_result.stat.exists == False
+
+- name: Generate nextcloud configuration for caddy
+  template:
+    src: "roles/nextcloud/templates/nextcloud_caddy.conf.tpl"
+    dest: "/etc/caddy/caddy.conf.d/nextcloud.conf"
+    owner: www-data
+    group: www-data
+  become: yes
+
+- name: Restart caddy
+  systemd:
+    name: caddy
+    state: restarted
+  become: yes
