@@ -1,2 +1,2 @@
-group_vars/all.yml
+group_vars/all.yaml
 playbook.retry
