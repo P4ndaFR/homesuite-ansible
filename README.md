@@ -33,4 +33,4 @@ echo -n "nextcloud ansible_ssh_host=the_ip_of_your_server ansible_ssh_user=the_c
 ```
 ansible-playbook playbook.yml
 ```
-- Connect to https://cloud.your.domaine and follow the posst-install procédure
+- Connect to https://cloud.your.domain and follow the posst-install procédure
