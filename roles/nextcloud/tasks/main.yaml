@@ -82,7 +82,7 @@
 
 - name: Generate nextcloud configuration for caddy
   template:
-    src: "roles/nextcloud/templates/nextcloud_caddy.conf.tpl"
+    src: "roles/nextcloud/templates/caddy.conf.tpl"
     dest: "/etc/caddy/caddy.conf.d/nextcloud.conf"
     owner: www-data
     group: www-data

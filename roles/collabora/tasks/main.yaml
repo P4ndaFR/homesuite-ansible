@@ -58,7 +58,35 @@
 - name: Configure wopi in loolwsd allow
   xml:
     path: /etc/loolwsd/loolwsd.xml
-    xpath: "/config/storage/wopi/host[text()={{escaped_domain}}]"
+    xpath: "/config/storage/wopi/host"
     attribute: allow
     value: "true"
+  become: yes
+
+- name: Configure wopi in loolwsd desc
+  xml:
+    path: /etc/loolwsd/loolwsd.xml
+    xpath: "/config/storage/wopi/host"
+    attribute: desc
+    value: "Regex pattern of hostname to allow or deny."
+  become: yes
+
+- name: Restart collabora
+  systemd:
+    name: loolwsd
+    state: restarted
+  become: yes
+
+- name: Generate collabora configuration for caddy
+  template:
+    src: "roles/collabora/templates/caddy.conf.tpl"
+    dest: "/etc/caddy/caddy.conf.d/collabora.conf"
+    owner: www-data
+    group: www-data
+  become: yes
+
+- name: Restart caddy
+  systemd:
+    name: caddy
+    state: restarted
   become: yes
