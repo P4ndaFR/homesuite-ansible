@@ -1,5 +1,5 @@
 ---
-- hosts: nas
+- hosts: nextcloud
   roles:
     - caddy
     - nextcloud
