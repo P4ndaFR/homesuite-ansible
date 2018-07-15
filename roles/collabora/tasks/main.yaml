@@ -48,18 +48,10 @@
     value: "true"
   become: yes
 
-- name: Configure wopi in loolwsd
-  xml:
-    path: /etc/loolwsd/loolwsd.xml
-    xpath: /config/storage/wopi
-    add_children:
-      - host: "{{escaped_domain}}"
-  become: yes
-
 - name: Configure wopi in loolwsd allow
   xml:
     path: /etc/loolwsd/loolwsd.xml
-    xpath: "/config/storage/wopi/host"
+    xpath: '/config/storage/wopi/host[text()="{{escaped_domain}}"]'
     attribute: allow
     value: "true"
   become: yes
@@ -67,7 +59,7 @@
 - name: Configure wopi in loolwsd desc
   xml:
     path: /etc/loolwsd/loolwsd.xml
-    xpath: "/config/storage/wopi/host"
+    xpath: '/config/storage/wopi/host[text()="{{escaped_domain}}"]'
     attribute: desc
     value: "Regex pattern of hostname to allow or deny."
   become: yes
