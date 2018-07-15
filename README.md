@@ -6,7 +6,7 @@ An ansible playbook to deploy a ready-to-use nextcloud w/ collabora based on the
 - a linux server with ssh and python installed, listening on the internet ( ports 80, 443 and 22)
 - a domain (DNS), or at least 2 subdomains pointing at your server
 
-DISCLAIMER : this playbook iss made for Debian-based disstributions and has only been tested only on Ubuntu 17.10 Server, if you need it for any other dissstribution, please open an issue and/or submit a pull-request.
+DISCLAIMER : this playbook iss made for Debian-based distributions and has only been tested on Ubuntu 17.10 Server and Ubuntu 18.04 LTS Server only, if you need it for any other distribution, please open an issue and/or submit a pull-request.
 
 ## How to uses it :
 - Clone this repository and cd insside
