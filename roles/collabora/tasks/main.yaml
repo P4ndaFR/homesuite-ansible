@@ -30,6 +30,7 @@
     update_cache: yes
   become: yes
   loop:
+    - python-lxml
     - loolwsd
     - code-brand
 
@@ -75,6 +76,7 @@
   systemd:
     name: loolwsd
     state: restarted
+    enabled: True
   become: yes
 
 - name: Generate collabora configuration for caddy
@@ -89,4 +91,5 @@
   systemd:
     name: caddy
     state: restarted
+    enabled: True
   become: yes

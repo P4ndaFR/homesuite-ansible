@@ -11,7 +11,6 @@
     - "php{{php_version}}-curl"
     - "php{{php_version}}-mbstring"
     - "php{{php_version}}-intl"
-    - "php{{php_version}}-mcrypt"
     - "php-imagick"
     - "php{{php_version}}-xml"
     - "php{{php_version}}-zip"
@@ -22,6 +21,7 @@
     name: "php{{php_version}}-fpm"
     daemon_reload: yes
     state: restarted
+    enabled: True
   become: yes
 
 - name: Install postgresql
@@ -92,4 +92,5 @@
   systemd:
     name: caddy
     state: restarted
+    enabled: True
   become: yes

@@ -83,4 +83,5 @@
     name: caddy
     daemon_reload: yes
     state: restarted
+    enabled: True
   become: yes
