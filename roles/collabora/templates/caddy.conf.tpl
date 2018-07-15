@@ -16,6 +16,6 @@
 
 	header / {
 		Strict-Transport-Security "max-age=31536000;"
-		Content-Security-Policy "default-src 'none'; frame-src 'self' blob:; connect-src 'self' wss://cloud.example.tld; script-src 'unsafe-inline' 'self'; style-src 'self' 'unsafe-inline'; font-src 'self' data:; object-src blob:; img-src 'self' data: https://cloud.example.tld:443; frame-ancestors https://cloud.example.tld:443"
+		Content-Security-Policy "default-src 'none'; frame-src 'self' blob:; connect-src 'self' wss://{{nextcloud_domain}}; script-src 'unsafe-inline' 'self'; style-src 'self' 'unsafe-inline'; font-src 'self' data:; object-src blob:; img-src 'self' data: https://{{nextcloud_domain}}:443; frame-ancestors https://{{nextcloud_domain}}:443"
 	}
 }
