@@ -10,7 +10,7 @@ DISCLAIMER : this playbook iss made for Debian-based distributions and has only 
 
 ## How to uses it :
 - Clone this repository and cd insside
-- Modify the ```group_vars/all.yml.sample``` file with your variables :
+- Modify the ```group_vars/all.yml.sample``` file with your variables ( for php_version pick the current version for your OS : "7.1" for Ubuntu 17.10, "7.2" for Ubuntu 18.04 LTS ) :
 ```yaml
 php_version: "7.1"
 db_password: "nextcloud_db_password"
