@@ -1,5 +1,5 @@
 # homesuite-ansible
-An ansible playbook to deploy a ready-to-use nextcloud /w collabora based on the [amazing work](https://brendan.abolivier.bzh/your-own-google-drive-docs/) of [Brendan Abolivier](https://twitter.com/BrenAbolivier)
+An ansible playbook to deploy a ready-to-use nextcloud w/ collabora based on the [amazing work](https://brendan.abolivier.bzh/your-own-google-drive-docs/) of [Brendan Abolivier](https://twitter.com/BrenAbolivier)
 
 ## Requirements
 - ansible >= 2.5.1
@@ -33,3 +33,4 @@ echo -n "nextcloud ansible_ssh_host=the_ip_of_your_server ansible_ssh_user=the_c
 ```
 ansible-playbook playbook.yml
 ```
+- Connect to https://cloud.your.domain and follow the posst-install procédure
