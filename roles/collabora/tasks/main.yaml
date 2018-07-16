@@ -23,7 +23,7 @@
     state: present
   become: yes
 
-- name: Install collabora
+- name: Install collabora & dependencies
   apt:
     name: "{{item}}"
     state: present
@@ -31,6 +31,7 @@
   become: yes
   loop:
     - python-lxml
+    - python3-lxml
     - loolwsd
     - code-brand
 
