@@ -18,6 +18,8 @@
   copy:
     src: /tmp/caddy/caddy
     dest: /usr/local/bin
+    owner: www-data
+    group: www-data
     remote_src: yes
   become: yes
 
