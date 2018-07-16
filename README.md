@@ -8,9 +8,9 @@ An ansible playbook to deploy a ready-to-use nextcloud w/ collabora based on the
 
 DISCLAIMER : this playbook iss made for Debian-based distributions and has only been tested on Ubuntu 17.10 Server and Ubuntu 18.04 LTS Server only, if you need it for any other distribution, please open an issue and/or submit a pull-request.
 
-## How to uses it :
-- Clone this repository and cd insside
-- Modify the ```group_vars/all.yml.sample``` file with your variables :
+## How to use it :
+- Clone this repository and cd inside
+- Modify the ```group_vars/all.yml.sample``` file with your variables ( for php_version pick the current version for your OS : "7.1" for Ubuntu 17.10, "7.2" for Ubuntu 18.04 LTS ) :
 ```yaml
 php_version: "7.1"
 db_password: "nextcloud_db_password"
@@ -33,4 +33,4 @@ echo -n "nextcloud ansible_ssh_host=the_ip_of_your_server ansible_ssh_user=the_c
 ```
 ansible-playbook playbook.yml
 ```
-- Connect to https://cloud.your.domain and follow the posst-install procédure
+- Connect to https://cloud.your.domain and follow the post-install procedure
