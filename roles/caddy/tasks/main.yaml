@@ -71,6 +71,7 @@
   file:
     path: /usr/lib/systemd/system
     state: directory
+  become: yes
 
 - name: Set caddy service in place
   copy:
