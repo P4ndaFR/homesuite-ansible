@@ -42,20 +42,21 @@
     state: directory
     owner: www-data
     group: www-data
-    recurse: yes
   become: yes
 
-- name: Create conf directory
+- name: Create subconf directory
   file:
     path: /etc/caddy/caddy.conf.d
     state: directory
     owner: www-data
     group: www-data
+    recurse: yes
   become: yes
 
 - name: Create main Caddyfile
   file:
     path: /etc/caddy/Caddyfile
+    state: touch
     owner: www-data
     group: www-data
   become: yes
