@@ -26,7 +26,7 @@ mv group_vars/all.yaml.sample group_vars/all.yaml
 
 - Add your server to your ansible inventory
 ```
-echo -n "nextcloud ansible_ssh_host=the_ip_of_your_server ansible_ssh_user=the_coonection_user ansible_become_password=the_password_you_use_to_sudo" >> /etc/ansible/hosts
+echo -n "nextcloud ansible_ssh_host=the_ip_of_your_server ansible_ssh_user=the_coonection_user ansible_become_password=the_password_you_use_to_sudo ansible_python_interpreter=/the/path/to/the/python/executable/on/remote/server" >> /etc/ansible/hosts
 ```
 
 - Lauch the playbook and go grab a coffee / beer, depending the hour of the day 
