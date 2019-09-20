@@ -46,8 +46,8 @@
 
 - name: Download nextcloud
   get_url:
-    url: https://download.nextcloud.com/server/releases/nextcloud-13.0.4.zip
-    dest: /tmp/nextcloud-13.0.4.zip
+    url: https://download.nextcloud.com/server/releases/latest.zip
+    dest: /tmp/nextcloud-latest.zip
 
 - name: Ensure main dir exists
   file:
@@ -73,7 +73,7 @@
 
 - name: Extract binary
   unarchive:
-    src: /tmp/nextcloud-13.0.4.zip
+    src: /tmp/nextcloud-latest.zip
     dest: /srv/http
     copy: no
     owner: www-data
